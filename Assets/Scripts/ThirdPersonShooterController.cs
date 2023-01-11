@@ -1,35 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using BigRookGames.Weapons;
 using UnityEngine;
 using StarterAssets;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using Scriptable_Objects;
 using TMPro;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class ThirdPersonShooterController : MonoBehaviour
 {
     [SerializeField] private LayerMask aimColliderMask;
-    [SerializeField] private Transform bulletProjectile;
+    [SerializeField] private WeaponScriptableObject gunScriptableObject;
     [SerializeField] private Transform spawnBulletPosition;
-    [SerializeField] private Vector3 FirePosition;
-    [SerializeField] private Vector3 FireRotation;
-    [SerializeField] private Vector3 IdlePosition;
-    [SerializeField] private Vector3 IdleRotation;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private GameObject gunObject;
 
-    [SerializeField] private GameObject GunObject;
-    // [SerializeField] private Transform debugTransform;
     public TextMeshProUGUI ammoDisplay;
-    
-    [Header("Weapon Stats")] public bool isBlast = false;
-    public float blastRadius = 0;
-    public float fireRate = 0.001f;
-    public float accuracy = 1;
-    public float damage = 10;
-    public int ammoCountMax = 30;
-    
     private int _ammoCountCurrent;
     private const float TimeAfterShootStart = 5f;
     private float _timeAfterShootLeft = 0f;
@@ -40,17 +29,17 @@ public class ThirdPersonShooterController : MonoBehaviour
     private Animator _animator;
     private float _nextFire;
     
-    void Awake()
+    private void Awake()
     {
         _starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         _thirdPersonController = GetComponent<ThirdPersonController>();
         _animator = GetComponent<Animator>();
-        _ammoCountCurrent = ammoCountMax;
+        _ammoCountCurrent = gunScriptableObject.maxAmmo;
     }
 
-    void Update()
+    private void Update()
     {
-        ammoDisplay.text = _ammoCountCurrent + "/" + ammoCountMax;
+        ammoDisplay.text = _ammoCountCurrent + "/" + gunScriptableObject.maxAmmo;
         _reloading = _thirdPersonController.Reloading;
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -93,17 +82,17 @@ public class ThirdPersonShooterController : MonoBehaviour
 
         if (_shooting)
         {
-            GunObject.transform.localPosition =
-                Vector3.Lerp(GunObject.transform.localPosition, FirePosition, Time.deltaTime * 10f);
-            GunObject.transform.localRotation = Quaternion.Lerp(GunObject.transform.localRotation,
-                Quaternion.Euler(FireRotation), Time.deltaTime * 10f);
+            gunObject.transform.localPosition =
+                Vector3.Lerp(gunObject.transform.localPosition, gunScriptableObject.firePosition, Time.deltaTime * 10f);
+            gunObject.transform.localRotation = Quaternion.Lerp(gunObject.transform.localRotation,
+                Quaternion.Euler(gunScriptableObject.fireRotation), Time.deltaTime * 10f);
         }
         else
         {
-            GunObject.transform.localPosition =
-                Vector3.Lerp(GunObject.transform.localPosition, IdlePosition, Time.deltaTime * 10f);
-            GunObject.transform.localRotation = Quaternion.Lerp(GunObject.transform.localRotation,
-                Quaternion.Euler(IdleRotation), Time.deltaTime * 10f);
+            gunObject.transform.localPosition =
+                Vector3.Lerp(gunObject.transform.localPosition, gunScriptableObject.idlePosition, Time.deltaTime * 10f);
+            gunObject.transform.localRotation = Quaternion.Lerp(gunObject.transform.localRotation,
+                Quaternion.Euler(gunScriptableObject.idleRotation), Time.deltaTime * 10f);
         }
 
         _animator.SetLayerWeight(1, _shooting
@@ -113,20 +102,49 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     private void Fire(Vector3 mouseWorldPosition)
     {
-        if (Time.fixedTime > fireRate + _nextFire)
+        if (Time.fixedTime > gunScriptableObject.fireRate + _nextFire)
         {
             _timeAfterShootLeft = TimeAfterShootStart;
             _thirdPersonController.SetRotateOnMove(false);
             var position = spawnBulletPosition.position;
             Vector3 aimDir = (mouseWorldPosition - position).normalized;
-            Instantiate(bulletProjectile, position, Quaternion.LookRotation(aimDir, Vector3.up));
+            Transform bulletTransform = Instantiate(gunScriptableObject.bulletObject.transform, position,
+                Quaternion.LookRotation(aimDir, Vector3.up));
+            bulletTransform.GetComponent<BulletProjectile>().Setup(aimDir,gunScriptableObject.bulletSpeed);
             _shooting = true;
-            GunObject.GetComponent<GunfireController>().FireWeapon();
             _nextFire = Time.fixedTime;
             _ammoCountCurrent--;
+            Instantiate(gunScriptableObject.muzzlePrefab, spawnBulletPosition.transform);
+            
+            if (gunScriptableObject.projectileToDisableOnFire != null)
+            {
+                gunScriptableObject.projectileToDisableOnFire.SetActive(false);
+                Invoke(nameof(ReEnableDisabledProjectile), 3);
+            }
+            
+            if (audioSource != null)
+            {
+                if (audioSource.transform.IsChildOf(transform))
+                {
+                    audioSource.Play();
+                }
+                else
+                {
+                    var newAS = Instantiate(audioSource);
+                    if ((newAS = Instantiate(audioSource)) != null && newAS.outputAudioMixerGroup != null &&
+                        newAS.outputAudioMixerGroup.audioMixer != null)
+                    {
+                        newAS.outputAudioMixerGroup.audioMixer.SetFloat("Pitch", Random.Range(gunScriptableObject.audioPitch.x, gunScriptableObject.audioPitch.y));
+                        newAS.pitch = Random.Range(gunScriptableObject.audioPitch.x, gunScriptableObject.audioPitch.y);
+                        newAS.PlayOneShot(gunScriptableObject.gunShotClip);
+                        Destroy(newAS.gameObject, 4);
+                    }
+                }
+            }
+            
         }
     }
-
+    
     private void Reload()
     {
         if (!_starterAssetsInputs.reload)
@@ -137,6 +155,11 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     public void RefreshAmmo()
     {
-        _ammoCountCurrent = ammoCountMax;
+        _ammoCountCurrent = gunScriptableObject.maxAmmo;
+    }
+    
+    private void ReEnableDisabledProjectile()
+    {
+        gunScriptableObject.projectileToDisableOnFire.SetActive(true);
     }
 }
