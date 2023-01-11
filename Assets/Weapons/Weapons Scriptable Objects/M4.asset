@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec85b666ab559346a38e2ac03f730c2, type: 3}
+  m_Name: M4
+  m_EditorClassIdentifier: 
+  gunObject: {fileID: 3960879644723491920, guid: 9c32f2e3b18a3a94fa0cb90a4ac1c2fd,
+    type: 3}
+  bulletObject: {fileID: 3307947664398586381, guid: 035970f7199c6a64a92758296c8fc4cb,
+    type: 3}
+  muzzlePrefab: {fileID: 1336949550903370, guid: 4543ab5e3d405ec40a8d4e9aa5165030,
+    type: 3}
+  projectileToDisableOnFire: {fileID: 0}
+  gunShotClip: {fileID: 0}
+  audioPitch: {x: 0.9, y: 1.1}
+  blastRadius: 0
+  fireRate: 0.001
+  accuracy: 1
+  damage: 10
+  maxAmmo: 30
+  reloadTime: 0
+  firePosition: {x: -0.004, y: -0.361, z: 0.546}
+  fireRotation: {x: 340.532, y: 63.015, z: -31.131}
+  idlePosition: {x: 0.2320265, y: -0.6602286, z: 0.3031723}
+  idleRotation: {x: 348.987, y: 12.983, z: 21.37}
