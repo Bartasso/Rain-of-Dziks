@@ -2,14 +2,22 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: T_Fire_Pig_A
-  m_Shader: {fileID: 4800000, guid: b35a2abbdd5b15d4ca40103088758eac, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 60e29b7951f20da47b11861d166b7036, type: 3}
+  m_ValidKeywords:
+  - _OUTLINETYPE_NORMAL
+  - _RIMSPLITCOLOR_NOSPLIT
+  - _USEADDITIONALLIGHTSDIFFUSE_ON
+  - _USELIGHTRAMP_POSTERIZE
+  - _USEOUTLINE_ON
+  - _USESPECULAR_ON
+  m_InvalidKeywords:
+  - _USESHADOWS_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -43,6 +51,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: a1d5b2277eb3f6245900378e6fa97575, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LightRampTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 10dc1905433b73c4e8abc0aa01e0b32d, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -63,26 +75,71 @@ Material:
         m_Texture: {fileID: 2800000, guid: cc8f70f2ec571e9478efa98c041cde7b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _AdaptiveThickness: 0.2
+    - _AdditionalLightsAmount: 1
+    - _AdditionalLightsFaloff: 1
+    - _AdditionalLightsIntesity: 1
+    - _AdditionalLightsSmoothnessMultiplier: 1
+    - _AlphaCutoff: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DepthBias: 0.00012
     - _DetailNormalMapScale: 1
+    - _DiffusePosterizeOffset: 0
+    - _DiffusePosterizePower: 1.27
+    - _DiffusePosterizeSteps: 3
     - _DstBlend: 0
     - _EdgeThickness: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _IndirectLightStrength: 1
+    - _LightRampOffset: 0
+    - _MainLightIntesity: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NormalMapStrength: 1
     - _OcclusionStrength: 1
+    - _OutlineTextureStrength: 0
+    - _OutlineType: 0
     - _Parallax: 0.02
+    - _RampDiffuseTextureLoaded: 1
+    - _RimPower: 12
+    - _RimSmoothness: 0
+    - _RimSplitColor: 0
+    - _RimThickness: 1
+    - _SmoothnessMultiplier: 1
     - _SmoothnessTextureChannel: 0
+    - _SpecularFaloff: 0
     - _SpecularHighlights: 1
+    - _SpecularPosterizeSteps: 15
+    - _SpecularShadowMask: 0
     - _SrcBlend: 1
+    - _StepOffset: -0.054
+    - _Strength: 0
+    - _Thickness: 0.002
     - _UVSec: 0
+    - _UseAdditionalLightsDiffuse: 1
+    - _UseEmission: 0
+    - _UseEnvironmentRefletion: 0
+    - _UseLightRamp: 2
+    - _UseOutline: 1
+    - _UseRimLight: 0
+    - _UseShadows: 1
+    - _UseSpecular: 1
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowColor: {r: 0.8, g: 0.8, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 0}
+    - _RimShadowColor: {r: 0, g: 0.055514283, b: 0.9622641, a: 0}
+    - _ShadowColor: {r: 0.8066038, g: 0.83771104, b: 1, a: 1}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []

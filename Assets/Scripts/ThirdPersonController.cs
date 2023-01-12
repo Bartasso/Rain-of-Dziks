@@ -362,7 +362,6 @@ namespace StarterAssets
 
         private void Reload()
         {
-            Debug.Log("Is reloading = " + Reloading);
             if (!Reloading)
             {
                 if (_hasAnimator)
