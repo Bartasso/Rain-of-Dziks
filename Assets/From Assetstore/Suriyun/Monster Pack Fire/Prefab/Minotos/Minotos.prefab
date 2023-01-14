@@ -9856,6 +9856,7 @@ GameObject:
   - component: {fileID: 7444803107816255597}
   - component: {fileID: 7444803107823443875}
   - component: {fileID: 1698912638}
+  - component: {fileID: 1317179750}
   m_Layer: 0
   m_Name: Minotos
   m_TagString: Untagged
@@ -9917,6 +9918,20 @@ MonoBehaviour:
     type: 2}
   player: {fileID: 0}
   audioSource: {fileID: 1514602870}
+--- !u!64 &1317179750
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7444803107816156173}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 708083241c993cb428442bfa07d61be4, type: 3}
 --- !u!1 &7444803107816156175
 GameObject:
   m_ObjectHideFlags: 0
