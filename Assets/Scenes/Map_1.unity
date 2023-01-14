@@ -4284,6 +4284,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf22a2db10f09a34495e9f83913738c8, type: 3}
+--- !u!1 &1423391080 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3164190807731404766, guid: 1b2fcdc6ef8a75c4084f2d4921557788,
+    type: 3}
+  m_PrefabInstance: {fileID: 5733464700933796556}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1455568614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4356,6 +4362,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerArmature
       objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: HealthBar
+      value: 
+      objectReference: {fileID: 1423391080}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!1001 &1469693417
@@ -6220,7 +6231,17 @@ PrefabInstance:
     - target: {fileID: 6184007408072179716, guid: 1b2fcdc6ef8a75c4084f2d4921557788,
         type: 3}
       propertyPath: m_Name
-      value: Crosshair Canvas
+      value: UI Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830227639314839691, guid: 1b2fcdc6ef8a75c4084f2d4921557788,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830227639314839691, guid: 1b2fcdc6ef8a75c4084f2d4921557788,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b2fcdc6ef8a75c4084f2d4921557788, type: 3}

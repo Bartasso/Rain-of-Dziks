@@ -1278,7 +1278,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 2
   SprintSpeed: 5.335
-  Health: 100
+  HealthBar: {fileID: 0}
+  MaxHealth: 100
+  CurrentHealth: 0
   Armour: 10
   ReloadTime: 3
   Reloading: 0
