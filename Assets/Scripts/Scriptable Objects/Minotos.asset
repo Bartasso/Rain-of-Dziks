@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ac0ac8c7c80194cbf5dfc4cdcb291d, type: 3}
   m_Name: Minotos
   m_EditorClassIdentifier: 
-  health: 0
-  damage: 0
+  health: 100
+  damage: 5
   isRanged: 0
-  attackRange: 5
-  engageDistance: 20
+  attackRange: 3
+  engageDistance: 50
   armour: 0
-  attackSpeed: 3
+  attackSpeed: 2
   attackSound: {fileID: 0}
   projectile: {fileID: 0}
-  moveSpeed: 0
+  moveSpeed: 5

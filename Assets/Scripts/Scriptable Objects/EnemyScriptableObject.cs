@@ -16,6 +16,5 @@ namespace Scriptable_Objects
         public AudioClip attackSound;
         public GameObject projectile;
         public float moveSpeed;
-        
     }
 }

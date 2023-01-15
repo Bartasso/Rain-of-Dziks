@@ -167,7 +167,7 @@ namespace StarterAssets
             CurrentHealth = MaxHealth;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             _hasAnimator = TryGetComponent(out _animator);
 

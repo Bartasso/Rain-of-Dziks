@@ -110,7 +110,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             Vector3 aimDir = (mouseWorldPosition - position).normalized;
             Transform bulletTransform = Instantiate(gunScriptableObject.bulletObject.transform, position,
                 Quaternion.LookRotation(aimDir, Vector3.up));
-            bulletTransform.GetComponent<BulletProjectile>().Setup(aimDir,gunScriptableObject.bulletSpeed);
+            bulletTransform.GetComponent<BulletProjectile>().Setup(aimDir,gunScriptableObject.bulletSpeed, gunScriptableObject.damage);
             _shooting = true;
             _nextFire = Time.fixedTime;
             _ammoCountCurrent--;

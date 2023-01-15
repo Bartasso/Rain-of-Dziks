@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2774174345980642135}
   m_Layer: 0
   m_Name: Bullet_2
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,7 +79,8 @@ MonoBehaviour:
   vfxNotEnemyHit: {fileID: 400002, guid: 99c73c92ac40473459640b165473206f, type: 3}
   vfxNormalHit: {fileID: 400002, guid: 4e810d1c7a0e88149a5b74fec9a3b2d9, type: 3}
   vfxCriticalHit: {fileID: 400002, guid: 4e810d1c7a0e88149a5b74fec9a3b2d9, type: 3}
-  speed: 100
+  bulletDamage: 0
+  bulletSpeed: 0
 --- !u!1 &8105320018590695952
 GameObject:
   m_ObjectHideFlags: 0
