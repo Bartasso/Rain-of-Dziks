@@ -26,10 +26,20 @@ public class EnemyController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _animatorController = GetComponent<AnimatorController>();
+        if (player == null)
+        {
+            //there will be many players so needs to be the closest one and change with agro 
+            GameObject.FindGameObjectsWithTag("Player");
+        }
     }
 
     private void Start()
     {
+        if (player == null)
+        {
+            //there will be many players so needs to be the closest one and change with agro 
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
         _currentHealth = enemyScriptableObject.health;
         AssignAnimationIDs();
         StartCoroutine(EnemyIdle());
