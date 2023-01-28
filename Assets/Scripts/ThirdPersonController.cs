@@ -22,8 +22,7 @@ namespace StarterAssets
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
         
-        [Tooltip("Sprint speed of the character in m/s")]
-        public GameObject HealthBar;
+        // [SerializeField] private GameObject playerCanvas;
 
         public float MaxHealth = 100;
         public float CurrentHealth;
@@ -121,7 +120,6 @@ namespace StarterAssets
         private GameObject _mainCamera;
         private const float _threshold = 0.01f;
         private bool _hasAnimator;
-        private Slider _healthBarSlider;
 
         private bool IsCurrentDeviceMouse
         {
@@ -153,6 +151,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GetComponent<PlayerInput>();
             _shooterController = GetComponent<ThirdPersonShooterController>();
+            
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -163,7 +162,6 @@ namespace StarterAssets
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
             _reloadTimeoutDelta = 0f;
-            _healthBarSlider = HealthBar.GetComponent<Slider>();
             CurrentHealth = MaxHealth;
         }
 
@@ -175,19 +173,13 @@ namespace StarterAssets
             GroundedCheck();
             Move();
             Reload();
-            HealthManager();
         }
         
         private void LateUpdate()
         {
             CameraRotation();
         }
-
-        private void HealthManager()
-        {
-            _healthBarSlider.value = CurrentHealth / MaxHealth;
-        }
-
+        
         private void AssignAnimationIDs()
         {
             _animIDSpeed = Animator.StringToHash("Speed");
@@ -216,6 +208,7 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            if (Time.timeScale == 0f) return;
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
@@ -231,7 +224,8 @@ namespace StarterAssets
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
             // Cinemachine will follow this target
-            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
+            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(
+                _cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
         }
 

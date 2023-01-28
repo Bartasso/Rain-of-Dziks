@@ -17,8 +17,10 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private Transform spawnBulletPosition;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameObject gunObject;
+    [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private GameObject playerCanvas;
 
-    public TextMeshProUGUI ammoDisplay;
+    private TextMeshProUGUI _ammoDisplay;
     private int _ammoCountCurrent;
     private const float TimeAfterShootStart = 5f;
     private float _timeAfterShootLeft = 0f;
@@ -28,18 +30,28 @@ public class ThirdPersonShooterController : MonoBehaviour
     private ThirdPersonController _thirdPersonController;
     private Animator _animator;
     private float _nextFire;
+    private PauseMenu _pauseMenu;
+    private Slider _healthBarSlider;
+
     
     private void Awake()
     {
+        Instantiate(menuCanvas);
+        Instantiate(playerCanvas);
         _starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         _thirdPersonController = GetComponent<ThirdPersonController>();
         _animator = GetComponent<Animator>();
         _ammoCountCurrent = gunScriptableObject.maxAmmo;
+        _pauseMenu = menuCanvas.GetComponentInChildren<PauseMenu>();
+        _healthBarSlider = playerCanvas.GetComponentInChildren<Slider>();
+
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        ammoDisplay.text = _ammoCountCurrent + "/" + gunScriptableObject.maxAmmo;
+        HealthManager();
+        _ammoDisplay = playerCanvas.GetComponentInChildren<TextMeshProUGUI>();
+        _ammoDisplay.text = _ammoCountCurrent + "/" + gunScriptableObject.maxAmmo;
         _reloading = _thirdPersonController.Reloading;
         Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -52,7 +64,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             }
         }
 
-        if (!_reloading)
+        if (!_reloading && !_pauseMenu.gameIsPaused)
         {
             if (_starterAssetsInputs.shoot)
             {
@@ -64,7 +76,7 @@ public class ThirdPersonShooterController : MonoBehaviour
         {
             Reload();
         }
-        
+
         if (_timeAfterShootLeft > 0)
         {
             _timeAfterShootLeft -= Time.deltaTime;
@@ -100,6 +112,11 @@ public class ThirdPersonShooterController : MonoBehaviour
             : Mathf.Lerp(_animator.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
     }
 
+    private void HealthManager()
+    {
+        _healthBarSlider.value = _thirdPersonController.CurrentHealth / _thirdPersonController.MaxHealth;
+    }
+    
     private void Fire(Vector3 mouseWorldPosition)
     {
         if (Time.fixedTime > gunScriptableObject.fireRate + _nextFire)

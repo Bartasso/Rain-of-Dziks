@@ -22,6 +22,10 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		[Header("Utility Values")] 
+		public bool escape;
+		
+
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
 		{
@@ -56,6 +60,11 @@ namespace StarterAssets
 			ReloadInput(value.isPressed);
 		}
 		
+		public void OnEscape(InputValue value)
+		{
+			EscapeInput(value.isPressed);
+		}
+		
 #endif
 
 
@@ -87,6 +96,11 @@ namespace StarterAssets
 		public void ReloadInput(bool newReloadState)
 		{
 			reload = newReloadState;
+		}
+		
+		public void EscapeInput(bool newEscapeState)
+		{
+			escape = newEscapeState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

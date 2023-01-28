@@ -1278,7 +1278,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 2
   SprintSpeed: 5.335
-  HealthBar: {fileID: 0}
+  PlayerCanvas: {fileID: 6184007408072179716, guid: 1b2fcdc6ef8a75c4084f2d4921557788,
+    type: 3}
   MaxHealth: 100
   CurrentHealth: 0
   Armour: 10
@@ -1353,6 +1354,7 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
+  escape: 0
 --- !u!114 &4416926081852918493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1472,7 +1474,10 @@ MonoBehaviour:
   spawnBulletPosition: {fileID: 7981648179633059358}
   audioSource: {fileID: 7981648179316869773}
   gunObject: {fileID: 3960879645592018777}
-  ammoDisplay: {fileID: 0}
+  menuCanvas: {fileID: 932902091840020886, guid: 5e4f47637bae02f46ad997bfb005b28b,
+    type: 3}
+  playerCanvas: {fileID: 6184007408072179716, guid: 1b2fcdc6ef8a75c4084f2d4921557788,
+    type: 3}
 --- !u!114 &50440288
 MonoBehaviour:
   m_ObjectHideFlags: 0
